@@ -29,6 +29,37 @@ lines(D1,  steps=(x=true,), close=(bot="",), fill=(pattern=20,bg=:green,dpi=200)
 lines!(D2, steps=(x=true,), close=(bot="",), fill=(pattern=82,bg=:blue,dpi=100), title="Stepped patch histogram", show=true, fmt=:png)
 ```
 
+Modern mode
+
+```julia
+D1 = histogram(randn(1000), I=:o, bin=0.1);
+D2 = histogram(randn(500),  I=:o, bin=0.1);
+
+gmtbegin()
+gmtfig("histo_step",fmt="png")
+basemap(region=(-4,3,0,50), proj=:Linear,
+	frame=(axes = (:left_full, :bottom_full,
+			:right_ticks, :top_bare),),
+	xaxis=(annot = :auto,
+		grid = :auto,
+		ticks = :auto,
+		label = "X",),
+	yaxis=(annot = :auto,
+		grid = :auto,
+		label = "Count",),
+	title="Stepped patch histogram",
+	figsize=(15,10),
+)
+lines(D1, steps=(x=true,), close=(bot="",), 
+	fill=(pattern=20,bg=:green,dpi=200), 
+)
+lines(D2, steps=(x=true,), close=(bot="",), 
+	fill=(pattern=82,bg=:blue,dpi=100),
+)
+gmtend()
+
+```
+
 ```@raw html
 <img src="../figs/histo_step.png" width="500" class="center"/>
 ```
